@@ -1,5 +1,4 @@
 import flet as ft
-
 contenedor = ft.Container(
               padding = 30,
               alignment = ft.Alignment.CENTER ,
@@ -21,6 +20,7 @@ def main(page: ft.Page):
      #   else:
      #       mensaje.value = f"¡Bienvenido a Yeremi Social!, {campo.value}."
     page.title = "Yeremi Social"
+    page.adaptive = True
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
     page.add(contenedor)
