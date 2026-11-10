@@ -1,13 +1,14 @@
 import flet as ft
 
 def main(page: ft.Page):
-    
-    mensaje_bienvenida = ft.Text(value = "Bienvenido", size = 50 , weight = "BOLD", color = "#43D17A")
+    campo_email = ft.Container(ft.Column(controls = [ft.Text(value = "Correo Electronico", size = 20 , weight = "BOLD", color = "#43D17A"), ft.TextField(hint_text= 'Correo electronico',border ='underline',color ="#8EDAAB")]))
+    campo_contraseña = ft.Container(ft.Column(controls = [ft.Text(value = "Correo Electronico", size = 20 , weight = "BOLD", color = "#43D17A"), ft.TextField(hint_text= 'Correo electronico',border ='underline',color ="#8EDAAB")]))
+    mensaje_bienvenida = ft.Container(padding = 30, content = ft.Text(value = "Bienvenido", size = 45 , weight = "BOLD", color = "#43D17A"))
     def cambiar_tamaño(e):
         if page.width < 600:
-         mensaje_bienvenida.size = 25
+         mensaje_bienvenida.size = 35
         else:
-         mensaje_bienvenida.size = 50
+         mensaje_bienvenida.size = 45
     
     page.on_resize = cambiar_tamaño
     # def button_clicked(e: ft.Event[ft.Button]):
@@ -27,10 +28,10 @@ def main(page: ft.Page):
             padding = 30,
             alignment = ft.Alignment.CENTER ,
             border_radius = 20 ,
-            bgcolor = "#0A0E0A", 
+            bgcolor = "#0A0E0A",
+            aspect_ratio = 0.667 ,
             content = ft.Column(alignment = ft.MainAxisAlignment.START, horizontal_alignment= ft.CrossAxisAlignment.CENTER ,
-            controls = [mensaje_bienvenida]
-            
+            controls = [mensaje_bienvenida, campo_email]
             )
     )
    ],      
