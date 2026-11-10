@@ -2,10 +2,10 @@ import flet as ft
 
 def main(page: ft.Page):
     campo_email = ft.Container(ft.Column(controls = [ft.Text(value = "Correo Electronico", size = 20 , weight = "BOLD", color = "#43D17A"), ft.TextField(hint_text= 'Correo electronico',border ='underline',color ="#8EDAAB")]))
-    campo_contraseña = ft.Container(ft.Column(controls = [ft.Text(value = "Correo Electronico", size = 20 , weight = "BOLD", color = "#43D17A"), ft.TextField(hint_text= 'Correo electronico',border ='underline',color ="#8EDAAB")]))
+    campo_contraseña = ft.Container(ft.Column(controls = [ft.Text(value = "Contraseña", size = 20 , weight = "BOLD", color = "#43D17A"), ft.TextField(password = True, hint_text= 'Contraseña',border ='underline',color ="#8EDAAB")]))
     mensaje_bienvenida = ft.Container(padding = 30, content = ft.Text(value = "Bienvenido", size = 45 , weight = "BOLD", color = "#43D17A"))
     def cambiar_tamaño(e):
-        if page.width < 600:
+        if page.width < 700:
          mensaje_bienvenida.size = 35
         else:
          mensaje_bienvenida.size = 45
@@ -31,7 +31,7 @@ def main(page: ft.Page):
             bgcolor = "#0A0E0A",
             aspect_ratio = 0.667 ,
             content = ft.Column(alignment = ft.MainAxisAlignment.START, horizontal_alignment= ft.CrossAxisAlignment.CENTER ,
-            controls = [mensaje_bienvenida, campo_email]
+            controls = [mensaje_bienvenida, campo_email, campo_contraseña]
             )
     )
    ],      
