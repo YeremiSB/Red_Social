@@ -1,40 +1,27 @@
 import flet as ft
 
 def main(page: ft.Page):
-    campo_email = ft.Container(
-      ft.Column(
-        controls = 
-        [ft.Text(value = "Correo Electronico", 
-                 size = 20 , 
-                 weight = "BOLD", 
-                 color = "#43D17A"), 
-        ft.TextField(hint_text= 'Correo electronico',
-                    border ='underline',
-                    color ="#8EDAAB")]))
-    campo_contraseña = ft.Container(
-      ft.Column(
-        controls = 
-        [ft.Text(value = "Contraseña", 
-                 size = 20 , 
-                 weight = "BOLD", 
-                 color = "#43D17A"), 
-         ft.TextField(password = True, 
-                      hint_text= 'Contraseña',
-                      border ='underline',
-                      color ="#8EDAAB")]))
-    mensaje_bienvenida = ft.Container(padding = 30, 
-                                      content = ft.Text(
-                                        value = "Bienvenido", 
-                                        size = 45 , 
-                                        weight = "BOLD", 
-                                        color = "#43D17A"))
     def cambiar_tamaño(e):
         if page.width < 700:
-         mensaje_bienvenida.content.size = 35
+          pass
+       #   mensaje_bienvenida.content.size = 35
         else:
-         mensaje_bienvenida.content.size = 45
+         pass
+         #mensaje_bienvenida.content.size = 45
         page.update()
     page.on_resize = cambiar_tamaño
+    barra_principal = ft.AppBar(
+    bgcolor = "#0A0E0A",
+    title=ft.Text(value = "Bast Social", 
+                  size = 20 , 
+                  weight = "BOLD", 
+                  color = "#43D17A"),
+    actions=[
+        ft.IconButton(ft.Icons.ACCOUNT_CIRCLE),
+        ft.IconButton(ft.Icons.ADD),
+        ft.IconButton(ft.Icons.MORE_VERT),
+    ],
+    )
     # def button_clicked(e: ft.Event[ft.Button]):
     #    if campo.value.strip() == "":
      #       error.value = f"ingrese un nombre valido"
@@ -46,16 +33,16 @@ def main(page: ft.Page):
             controls = [ft.Container(
             col={
             "xs": 12, 
-            "md": 6,  
-            "lg": 4 , 
+            "md": 12,  
+            "lg": 12 , 
             } ,
             padding = 30,
             alignment = ft.Alignment.CENTER ,
             border_radius = 20 ,
             bgcolor = "#0A0E0A",
-            aspect_ratio = 0.667 ,
+            aspect_ratio = 0.5625 ,
             content = ft.Column(alignment = ft.MainAxisAlignment.START, horizontal_alignment= ft.CrossAxisAlignment.CENTER ,
-            controls = [mensaje_bienvenida, campo_email, campo_contraseña]
+            controls = [ft.Text("HelloWorld")]
             )
     )
    ],      
@@ -70,6 +57,6 @@ def main(page: ft.Page):
     page.adaptive = True
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
-    page.add(contenedor)
+    page.add(barra_principal, contenedor)
     cambiar_tamaño(None)
 ft.run(main)
