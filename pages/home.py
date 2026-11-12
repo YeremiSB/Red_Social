@@ -1,9 +1,15 @@
-from flet.canvas import Shadow
 import flet as ft
 
 def main(page: ft.Page):
     barra_principal = ft.AppBar(
-      
+      elevation = 5,
+      shadow_color= "#43D17A",
+      shape = ft.RoundedRectangleBorder(
+    radius = ft.BorderRadius.only(
+        bottom_left = 15,
+        bottom_right = 15
+    )
+      ), 
       bgcolor = "#0A0E0A",
       title=ft.Text(value = "Bast Social", 
                     size = 20 , 
@@ -15,6 +21,7 @@ def main(page: ft.Page):
           ft.IconButton(ft.Icons.MORE_VERT),
       ],
     )
+  imagenes = 
     def cambiar_tamaño(e):
         if page.width < 700:
           pass
@@ -42,13 +49,11 @@ def main(page: ft.Page):
             alignment = ft.Alignment.CENTER ,
             border_radius = 20 ,
             bgcolor = "#0A0E0A",
-            
             shadow=ft.BoxShadow(
-                    spread_radius = 15,
-                    blur_radius= 0 ,
+                    spread_radius = 0,
+                    blur_radius= 10 ,
                     color= "#43D17A",
                     offset=ft.Offset(0, 5)),
-      
             aspect_ratio = 0.5625 ,
             content = ft.Column(alignment = ft.MainAxisAlignment.START, horizontal_alignment= ft.CrossAxisAlignment.CENTER ,
             controls = [ft.Text("HelloWorld"), ft.IconButton(icon = ft.Icons.ADD_A_PHOTO, icon_size = 40)]
