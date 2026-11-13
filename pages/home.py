@@ -1,6 +1,7 @@
 import flet as ft
 
 def main(page: ft.Page):
+    imagen = "https://yeremisb.com/Fotos/Gato_Calle.webp"
     barra_principal = ft.AppBar(
       elevation = 5,
       shadow_color= "#43D17A",
@@ -32,7 +33,7 @@ def main(page: ft.Page):
                       color= "#43D17A",
                       offset=ft.Offset(0, 5)),
               #aspect_ratio = 0.5625 ,
-              content = ft.Image(src="https://yeremisb.com/Fotos/Gato_Calle.webp", fit = ft.BoxFit.COVER, width=float("inf"), height=float("inf"),)
+              content = ft.Image(src = imagen , fit = ft.BoxFit.COVER, width=float("inf"), height=float("inf"),)
               )
     def cambiar_tamaño(e):
         if page.width < 700:
