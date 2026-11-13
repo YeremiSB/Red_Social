@@ -22,7 +22,7 @@ def main(page: ft.Page):
       ],
     )
     imagenes = ft.Container(
-              padding = 30,
+              expand=True,
               alignment = ft.Alignment.CENTER ,
               border_radius = 20 ,
               bgcolor = "#0A0E0A",
@@ -31,8 +31,8 @@ def main(page: ft.Page):
                       blur_radius= 10 ,
                       color= "#43D17A",
                       offset=ft.Offset(0, 5)),
-              aspect_ratio = 0.5625 ,
-              content = ft.Image(src="https://yeremisb.com/Fotos/Gato_Calle.webp", fit = ft.BoxFit.COVER)
+              #aspect_ratio = 0.5625 ,
+              content = ft.Image(src="https://yeremisb.com/Fotos/Gato_Calle.webp", fit = ft.BoxFit.COVER, width=float("inf"), height=float("inf"),)
               )
     def cambiar_tamaño(e):
         if page.width < 700:
@@ -54,8 +54,8 @@ def main(page: ft.Page):
             controls = [ft.Container(
             col={
             "xs": 12, 
-            "md": 12,  
-            "lg": 12 , 
+            "md": 6,  
+            "lg": 3 , 
             } ,
             padding = 30,
             alignment = ft.Alignment.CENTER ,
@@ -83,6 +83,7 @@ def main(page: ft.Page):
     page.adaptive = True
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
-    page.add(barra_principal, contenedor)
+    page.appbar = barra_principal
+    page.add(contenedor)
     cambiar_tamaño(None)
 ft.run(main)
