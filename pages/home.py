@@ -21,7 +21,19 @@ def main(page: ft.Page):
           ft.IconButton(ft.Icons.MORE_VERT),
       ],
     )
-  imagenes = 
+    imagenes = ft.Container(
+              padding = 30,
+              alignment = ft.Alignment.CENTER ,
+              border_radius = 20 ,
+              bgcolor = "#0A0E0A",
+              shadow=ft.BoxShadow(
+                      spread_radius = 0,
+                      blur_radius= 10 ,
+                      color= "#43D17A",
+                      offset=ft.Offset(0, 5)),
+              aspect_ratio = 0.5625 ,
+              content = ft.Image(src="https://yeremisb.com/Fotos/Gato_Calle.webp", fit = ft.BoxFit.COVER)
+              )
     def cambiar_tamaño(e):
         if page.width < 700:
           pass
@@ -56,7 +68,7 @@ def main(page: ft.Page):
                     offset=ft.Offset(0, 5)),
             aspect_ratio = 0.5625 ,
             content = ft.Column(alignment = ft.MainAxisAlignment.START, horizontal_alignment= ft.CrossAxisAlignment.CENTER ,
-            controls = [ft.Text("HelloWorld"), ft.IconButton(icon = ft.Icons.ADD_A_PHOTO, icon_size = 40)]
+            controls = [imagenes , ft.IconButton(icon = ft.Icons.ADD_A_PHOTO, icon_size = 40)]
             )
     )
    ],      
