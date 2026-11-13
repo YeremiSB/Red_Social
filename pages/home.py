@@ -35,20 +35,6 @@ def main(page: ft.Page):
               #aspect_ratio = 0.5625 ,
               content = ft.Image(src = imagen , fit = ft.BoxFit.COVER, width=float("inf"), height=float("inf"),)
               )
-    def cambiar_tamaño(e):
-        if page.width < 700:
-          pass
-       #   mensaje_bienvenida.content.size = 35
-        else:
-         pass
-         #mensaje_bienvenida.content.size = 45
-        page.update()
-    page.on_resize = cambiar_tamaño
-    # def button_clicked(e: ft.Event[ft.Button]):
-    #    if campo.value.strip() == "":
-     #       error.value = f"ingrese un nombre valido"
-     #   else:
-     #       mensaje.value = f"¡Bienvenido a Yeremi Social!, {campo.value}."
     contenedor = ft.ResponsiveRow(
             alignment = ft.MainAxisAlignment.CENTER ,
             vertical_alignment = ft.CrossAxisAlignment.CENTER ,
@@ -86,5 +72,3 @@ def main(page: ft.Page):
     page.vertical_alignment = "center"
     page.appbar = barra_principal
     page.add(contenedor)
-    cambiar_tamaño(None)
-ft.run(main)
