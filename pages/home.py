@@ -1,5 +1,5 @@
 import flet as ft
-
+import flet-camera as camera
 def main(page: ft.Page):
     imagen = "https://yeremisb.com/Fotos/Gato_Calle.webp"
     barra_principal = ft.AppBar(
@@ -72,3 +72,4 @@ def main(page: ft.Page):
     page.vertical_alignment = "center"
     page.appbar = barra_principal
     page.add(contenedor)
+
