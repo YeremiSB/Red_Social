@@ -1,6 +1,7 @@
 import flet as ft
-import flet-camera as camera
+import flet_camera as camera
 def main(page: ft.Page):
+    camera.Camera()
     imagen = "https://yeremisb.com/Fotos/Gato_Calle.webp"
     barra_principal = ft.AppBar(
       elevation = 5,
@@ -72,4 +73,3 @@ def main(page: ft.Page):
     page.vertical_alignment = "center"
     page.appbar = barra_principal
     page.add(contenedor)
-
