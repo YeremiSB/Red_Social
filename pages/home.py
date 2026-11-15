@@ -2,18 +2,18 @@ import base64
 from datetime import datetime
 from pathlib import Path
 
-import flet as ft
-import flet_camera as fc
+import flet as feet
+import flet_camera as paw
 
 VERDE = "#43D17A"
 FONDO = "#0A0E0A"
-FOTO_INICIAL = "https://yeremisb.com/Fotos/Gato_Calle.webp"
+FOTOS = "https://yeremisb.com/Fotos/Gato_Calle.webp"
 CARPETA_FOTOS = Path(__file__).resolve().parent.parent / "fotos"
 
 
 PLATAFORMAS_CON_CAMARA = (
-    ft.PagePlatform.ANDROID,
-    ft.PagePlatform.IOS,
+    feet.PagePlatform.ANDROID,
+    feet.PagePlatform.IOS,
 )
 
 
@@ -34,7 +34,7 @@ def describir_error(ex: Exception) -> str:
     return f"Error de cámara: {ex}"
 
 
-def es_virtual(desc: fc.CameraDescription) -> bool:
+def es_virtual(desc: paw.CameraDescription) -> bool:
     nombre = desc.name.lower()
     return any(
         pista in nombre
@@ -49,49 +49,49 @@ def guardar_foto(datos: bytes) -> Path:
     return ruta
 
 
-def main(page: ft.Page):
+def main(page: feet.Page):
     page.assets_dir = "assets"
     page.fonts = {
         "Space_Grotesk": "fonts/SpaceGrotesk-Regular.ttf",
         "Space_Grotesk_Bold": "fonts/SpaceGrotesk-Bold.ttf",
     }
     page.bgcolor = "black"
-    page.theme = ft.Theme(font_family="Space_Grotesk")
+    page.theme = feet.Theme(font_family="Space_Grotesk")
     page.title = "Yeremi Social"
     page.adaptive = True
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
 
-    barra_principal = ft.AppBar(
+    barra_principal = feet.AppBar(
         elevation=5,
         shadow_color=VERDE,
-        shape=ft.RoundedRectangleBorder(
-            radius=ft.BorderRadius.only(bottom_left=15, bottom_right=15)
+        shape=feet.RoundedRectangleBorder(
+            radius=feet.BorderRadius.only(bottom_left=15, bottom_right=15)
         ),
         bgcolor=FONDO,
-        title=ft.Text(
+        title=feet.Text(
             value="Bast Social",
             size=20,
             weight="BOLD",
             color=VERDE,
         ),
         actions=[
-            ft.IconButton(ft.Icons.ACCOUNT_CIRCLE),
-            ft.IconButton(ft.Icons.ADD),
-            ft.IconButton(ft.Icons.MORE_VERT),
+            feet.IconButton(feet.Icons.ACCOUNT_CIRCLE),
+            feet.IconButton(feet.Icons.ADD),
+            feet.IconButton(feet.Icons.MORE_VERT),
         ],
     )
 
-    foto = ft.Image(
-        src=FOTO_INICIAL,
-        fit=ft.BoxFit.COVER,
+    foto = feet.Image(
+        src=FOTOS,
+        fit=feet.BoxFit.COVER,
         width=float("inf"),
         height=float("inf"),
     )
-    capa_foto = ft.Container(expand=True, bgcolor=FONDO, content=foto)
+    capa_foto = feet.Container(expand=True, bgcolor=FONDO, content=foto)
 
     soporta_camara = page.web or page.platform in PLATAFORMAS_CON_CAMARA
-    camara = fc.Camera(expand=True) if soporta_camara else None
+    camara = paw.Camera(expand=True) if soporta_camara else None
 
     inicializada = False
     en_camara = False
@@ -100,26 +100,32 @@ def main(page: ft.Page):
 
     def aviso(texto: str, error: bool = False):
         page.show_dialog(
-            ft.SnackBar(
-                content=ft.Text(texto, color="white"),
+            feet.SnackBar(
+                content=feet.Text(texto, color="white"),
                 bgcolor="#5A1B1B" if error else "#1E2B1E",
                 duration=4000,
             )
         )
 
-    boton_disparo = ft.IconButton(
-        icon=ft.Icons.CAMERA,
-        icon_size=40,
-        icon_color=FONDO,
-        bgcolor=VERDE,
-        tooltip="Tomar foto",
-        visible=False,
+    boton_disparo = feet.IconButton(
+        icon = feet.Icons.CAMERA,
+        icon_size = 40,
+        icon_color = FONDO,
+        bgcolor = VERDE,
+        tooltip = "Tomar foto",
+        visible = False,
     )
-    boton_camara = ft.IconButton(
-        icon=ft.Icons.ADD_A_PHOTO,
-        icon_size=40,
-        icon_color=VERDE,
-        tooltip="Abrir cámara",
+    boton_like = feet.IconButton(
+        icon = feet.Icons.FAVORITE_BORDER ,
+        icon_size = 20,
+        icon_color = VERDE,
+        tooltip = "Like"
+    )
+    boton_camara = feet.IconButton(
+        icon = feet.Icons.ADD_A_PHOTO,
+        icon_size = 40,
+        icon_color = VERDE,
+        tooltip = "Abrir cámara",
     )
 
     async def abrir_camara(e=None):
@@ -154,7 +160,7 @@ def main(page: ft.Page):
                     try:
                         await camara.initialize(
                             desc,
-                            fc.ResolutionPreset.HIGH,
+                            paw.ResolutionPreset.HIGH,
                             enable_audio=False,
                         )
                     except Exception as ex:
@@ -179,7 +185,7 @@ def main(page: ft.Page):
 
         capa_foto.visible = False
         boton_disparo.visible = True
-        boton_camara.icon = ft.Icons.CLOSE
+        boton_camara.icon = feet.Icons.CLOSE
         en_camara = True
         page.update()
 
@@ -192,7 +198,7 @@ def main(page: ft.Page):
                 pass
         capa_foto.visible = True
         boton_disparo.visible = False
-        boton_camara.icon = ft.Icons.ADD_A_PHOTO
+        boton_camara.icon = feet.Icons.ADD_A_PHOTO
         en_camara = False
         page.update()
 
@@ -215,24 +221,22 @@ def main(page: ft.Page):
         await cerrar_camara()
         aviso(f"Foto guardada en fotos/{ruta.name}")
 
-    async def al_cambiar_estado(e: ft.AppLifecycleStateChangeEvent):
+    async def al_cambiar_estado(e: feet.AppLifecycleStateChangeEvent):
         nonlocal inicializada, en_camara
 
         if camara is None:
             return
-        if e.state in (ft.AppLifecycleState.HIDE, ft.AppLifecycleState.PAUSE):
+        if e.state in (feet.AppLifecycleState.HIDE, feet.AppLifecycleState.PAUSE):
             if inicializada:
                 try:
                     await camara.pause_preview()
                 except Exception:
                     pass
             return
-        if e.state not in (ft.AppLifecycleState.RESUME, ft.AppLifecycleState.SHOW):
+        if e.state not in (feet.AppLifecycleState.RESUME, feet.AppLifecycleState.SHOW):
             return
         if not inicializada or desc_actual is None:
             return
-
-        # Al volver de segundo plano el navegador puede haber cortado el stream.
         try:
             await camara.resume_preview()
             return
@@ -242,7 +246,7 @@ def main(page: ft.Page):
         try:
             await camara.initialize(
                 desc_actual,
-                fc.ResolutionPreset.HIGH,
+                paw.ResolutionPreset.HIGH,
                 enable_audio=False,
             )
         except Exception as ex:
@@ -250,7 +254,7 @@ def main(page: ft.Page):
             en_camara = False
             capa_foto.visible = True
             boton_disparo.visible = False
-            boton_camara.icon = ft.Icons.ADD_A_PHOTO
+            boton_camara.icon = feet.Icons.ADD_A_PHOTO
             aviso(
                 describir_error(ex) + " Pulsa el botón de cámara para reintentar.",
                 True,
@@ -261,51 +265,51 @@ def main(page: ft.Page):
     boton_disparo.on_click = tomar_foto
     page.on_app_lifecycle_state_change = al_cambiar_estado
 
-    vista = ft.Stack(
+    vista = feet.Stack(
         controls=([camara] if camara is not None else []) + [capa_foto],
-        fit=ft.StackFit.EXPAND,
+        fit=feet.StackFit.EXPAND,
         expand=True,
     )
 
-    imagenes = ft.Container(
+    imagenes = feet.Container(
         expand=True,
-        alignment=ft.Alignment.CENTER,
+        alignment=feet.Alignment.CENTER,
         border_radius=20,
         bgcolor=FONDO,
-        shadow=ft.BoxShadow(
+        shadow=feet.BoxShadow(
             spread_radius=0,
             blur_radius=10,
             color=VERDE,
-            offset=ft.Offset(0, 5),
+            offset=feet.Offset(0, 5),
         ),
         content=vista,
     )
 
-    contenedor = ft.ResponsiveRow(
-        alignment=ft.MainAxisAlignment.CENTER,
-        vertical_alignment=ft.CrossAxisAlignment.CENTER,
+    contenedor = feet.ResponsiveRow(
+        alignment=feet.MainAxisAlignment.CENTER,
+        vertical_alignment=feet.CrossAxisAlignment.CENTER,
         controls=[
-            ft.Container(
+            feet.Container(
                 col={"xs": 12, "md": 6, "lg": 3},
                 padding=30,
-                alignment=ft.Alignment.CENTER,
+                alignment=feet.Alignment.CENTER,
                 border_radius=20,
                 bgcolor=FONDO,
-                shadow=ft.BoxShadow(
+                shadow=feet.BoxShadow(
                     spread_radius=0,
                     blur_radius=10,
                     color=VERDE,
-                    offset=ft.Offset(0, 5),
+                    offset=feet.Offset(0, 5),
                 ),
                 aspect_ratio=0.5625,
-                content=ft.Column(
-                    alignment=ft.MainAxisAlignment.START,
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                content=feet.Column(
+                    alignment=feet.MainAxisAlignment.START,
+                    horizontal_alignment=feet.CrossAxisAlignment.CENTER,
                     controls=[
                         imagenes,
-                        ft.Row(
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            controls=[boton_camara, boton_disparo],
+                        feet.Row(
+                            alignment=feet.MainAxisAlignment.CENTER,
+                            controls=[boton_like, boton_camara, boton_disparo],
                         ),
                     ],
                 ),

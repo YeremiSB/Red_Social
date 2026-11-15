@@ -1,4 +1,4 @@
-import flet as ft
+import flet as feet
 from pages import home
 
-ft.run(home.main)
+feet.run(home.main)
